@@ -39,7 +39,9 @@ object Streams extends App :
       case Cons(head, tail) => Empty()
       case _ => Empty()
 
-
+    def fill[A](n: Int)(k: A): Stream[A] = n match
+      case 0 => Empty()
+      case _ => cons(k, fill(n-1)(k))
 
     def iterate[A](init: => A)(next: A => A): Stream[A] =
       cons(init, iterate(next(init))(next))
