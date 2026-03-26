@@ -19,3 +19,9 @@ class PersonTest:
       Cons("PPS", Cons("PCD", Nil())),
       teacherCourses(people)
     )
+
+  @Test def testDistinctCourseCount() =
+    val teachers = Cons(Teacher("Viroli", "PPS"),
+      Cons(Teacher("Aguzzi", "PPS"),
+        Cons(Teacher("Ricci", "PCD"), Nil())))
+    assertEquals(2, distinctCourseCount(teachers))
