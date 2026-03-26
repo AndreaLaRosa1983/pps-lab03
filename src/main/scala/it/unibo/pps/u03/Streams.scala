@@ -46,6 +46,11 @@ object Streams extends App :
     def iterate[A](init: => A)(next: A => A): Stream[A] =
       cons(init, iterate(next(init))(next))
 
+    val fibonacci: Stream[Int] =
+      def fib(a: Int, b: Int): Stream[Int] = cons(a, fib(b, a + b))
+      fib(0, 1)
+
+
   end Stream
 
 @main def tryStreams =

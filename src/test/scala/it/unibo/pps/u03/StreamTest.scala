@@ -32,6 +32,11 @@ class StreamTest:
       Stream.toList(Stream.fill(0)("a"))
     )
 
+  @Test def testFibonacci() =
+    assertEquals(
+      Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Nil()))))),
+      Stream.toList(Stream.take(Stream.fibonacci)(5))
+    )
 
 
 
