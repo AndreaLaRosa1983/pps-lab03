@@ -149,6 +149,9 @@ object Sequences: // Essentially, generic linkedlists
           if pred(h) then (Cons(h, satisfied), notSatisfied)
           else (satisfied, Cons(h, notSatisfied))
 
+  def foldLeft[A, B](s: Sequence[A])(default: B)(op: (B, A) => B): B = s match
+    case Nil() =>
+    case Cons(h, t) =>
 
 @main def trySequences =
   import Sequences.* 
