@@ -20,4 +20,4 @@ object Person:
     case _ => Nil()
 
   def distinctCourseCount(ps: Sequence[Person]): Int =
-    foldLeft(distinct(teacherCourses(ps)))(0)()
+    foldLeft(distinct(teacherCourses(ps)))(0)((acc, _) => acc + 1 )
