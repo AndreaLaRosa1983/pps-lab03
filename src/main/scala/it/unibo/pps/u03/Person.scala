@@ -15,7 +15,9 @@ object Person:
     case Student(n, _) => n
     case Teacher(n, _) => n
 
-  def teacherCourses(ps: Sequence[Person]): Sequence[String] =
-  flatMap(ps):
+  def teacherCourses(ps: Sequence[Person]): Sequence[String] = flatMap(ps):
     case Person.Teacher(_, course) => Cons(course, Nil())
     case _ => Nil()
+
+  def distinctCourseCount(ps: Sequence[Person]): Int =
+    foldLeft(distinct(teacherCourses(ps)))(0)()
