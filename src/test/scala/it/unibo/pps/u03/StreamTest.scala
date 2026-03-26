@@ -32,7 +32,6 @@ class StreamTest:
       Stream.toList(Stream.fill(0)("a"))
     )
 
-  Prova !
 
 
 
