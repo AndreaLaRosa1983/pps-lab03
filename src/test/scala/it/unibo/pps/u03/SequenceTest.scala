@@ -1,12 +1,16 @@
-package it.unibo.pps.u03
+scalapackage it.unibo.pps.u03
 
 import org.junit.*
 import org.junit.Assert.*
 import u03.Optionals.Optional.{Empty, Just}
+import u03.Sequences.*
+import u03.Sequences.Sequence.*
+import u03.Streams.*
+import u03.Person.*
+
+// ========== Task 1: Sequences ==========
 
 class SequenceTest:
-  import u03.Sequences.*
-  import Sequence.*
 
   val sequence: Sequence[Int] = Cons(10, Cons(20, Cons(30, Nil())))
 
@@ -79,7 +83,6 @@ class SequenceTest:
     val (even, odd) = partition(sequence)(x => x % 2 == 0)
     assertEquals(Cons(20, Nil()), even)
     assertEquals(Cons(11, Cons(31, Nil())), odd)
-
     val emptySequence = Nil()
     val (evenEmpty, oddEmpty) = partition(emptySequence)(x => true)
     assertEquals(Nil(), evenEmpty)
@@ -89,3 +92,60 @@ class SequenceTest:
     val lst = Cons(3, Cons(7, Cons(1, Cons(5, Nil()))))
     assertEquals(-16, foldLeft(lst)(0)(_ - _))
     assertEquals(0, foldLeft(Nil[Int]())(0)(_ - _))
+
+
+// ========== Task 2: Person ==========
+
+class PersonTest:
+
+  val people: Sequence[Person] = Cons(Teacher("Viroli", "PPS"),
+    Cons(Student("Mario", 2020),
+      Cons(Teacher("Ricci", "PCD"), Nil())))
+
+  @Test def testTeacherCourses() =
+    assertEquals(
+      Cons("PPS", Cons("PCD", Nil())),
+      teacherCourses(people)
+    )
+
+  @Test def testDistinctCourseCount() =
+    val teachers = Cons(Teacher("Viroli", "PPS"),
+      Cons(Teacher("Aguzzi", "PPS"),
+        Cons(Teacher("Ricci", "PCD"), Nil())))
+    assertEquals(2, distinctCourseCount(teachers))
+
+
+// ========== Task 3: Streams ==========
+
+class StreamTest:
+
+  @Test def testTakeWhile() =
+    val stream = Stream.iterate(0)(_ + 1)
+    assertEquals(
+      Cons(0, Cons(1, Cons(2, Cons(3, Cons(4, Nil()))))),
+      Stream.toList(Stream.takeWhile(stream)(_ < 5))
+    )
+    assertEquals(
+      Nil(),
+      Stream.toList(Stream.takeWhile(stream)(_ < 0))
+    )
+    assertEquals(
+      Cons(0, Nil()),
+      Stream.toList(Stream.takeWhile(stream)(_ < 1))
+    )
+
+  @Test def testFill() =
+    assertEquals(
+      Cons("a", Cons("a", Cons("a", Nil()))),
+      Stream.toList(Stream.fill(3)("a"))
+    )
+    assertEquals(
+      Nil(),
+      Stream.toList(Stream.fill(0)("a"))
+    )
+
+  @Test def testFibonacci() =
+    assertEquals(
+      Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Nil()))))),
+      Stream.toList(Stream.take(Stream.fibonacci)(5))
+    )
