@@ -1,4 +1,4 @@
-scalapackage it.unibo.pps.u03
+package it.unibo.pps.u03
 
 import org.junit.*
 import org.junit.Assert.*
@@ -7,6 +7,7 @@ import u03.Sequences.*
 import u03.Sequences.Sequence.*
 import u03.Streams.*
 import u03.Person.*
+import u03.Person
 
 // ========== Task 1: Sequences ==========
 
